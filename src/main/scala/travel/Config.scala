@@ -10,10 +10,10 @@ object Config {
 
   override def toString: String =
     s"""
-      |CONFIG:
-      | - TRAVEL
+      |CONFIG: [
+      | APP:
       |   - port: $port
-      | - GRAPHQL
-      |   - url: $GraphqlUrl
-      |""".stripMargin
+      | ENDPOINTS:
+      |   - graphql: $GraphqlUrl
+      |]""".stripMargin
 }
