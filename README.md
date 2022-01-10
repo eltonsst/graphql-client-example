@@ -1,2 +1,2 @@
 # graphql-client-example
-An example of http service that calls a graphql endpoint
+An example of akka http service that calls a graphql endpoint
