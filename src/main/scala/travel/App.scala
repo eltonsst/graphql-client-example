@@ -3,6 +3,7 @@ package travel
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
+import com.typesafe.scalalogging.LazyLogging
 
 import scala.util.Failure
 import scala.util.Success
@@ -31,6 +32,9 @@ object App {
   def main(args: Array[String]): Unit = {
     implicit val system: ActorSystem = ActorSystem("system")
     implicit val executionContext: ExecutionContext = system.dispatcher
+
+    system.log.info(s"load configuration: ${Config.toString}")
+
     val routes = new Routes()
     startHttpServer(routes.routes)
   }
