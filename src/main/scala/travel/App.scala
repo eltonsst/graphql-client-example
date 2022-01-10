@@ -14,7 +14,7 @@ object App {
   private def startHttpServer(
       routes: Route
   )(implicit system: ActorSystem, executionContext: ExecutionContext): Unit = {
-    val futureBinding = Http().newServerAt("127.0.0.1", 8080).bind(routes)
+    val futureBinding = Http().newServerAt("127.0.0.1", Config.port).bind(routes)
     futureBinding.onComplete {
       case Success(binding) =>
         val address = binding.localAddress
