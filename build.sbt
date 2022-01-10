@@ -1,3 +1,4 @@
+
 lazy val akkaHttpVersion = "10.2.7"
 lazy val akkaVersion = "2.6.18"
 
@@ -8,7 +9,7 @@ lazy val akkaVersion = "2.6.18"
 fork := true
 
 lazy val root = (project in file("."))
-  .enablePlugins(BuildInfoPlugin)
+  .enablePlugins(BuildInfoPlugin, JavaAppPackaging)
   .settings(
     buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
     buildInfoPackage := "travel"

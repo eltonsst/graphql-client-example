@@ -12,20 +12,32 @@ import spray.json.enrichAny
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success, Try}
 
-class TravelApi(uri: String)(implicit actorSystem: ActorSystem, executionContext: ExecutionContext)  {
+class TravelApi(uri: String)(implicit
+    actorSystem: ActorSystem,
+    executionContext: ExecutionContext
+) {
 
-  def getProducts(minPriceEur: Double, maxPriceEur: Double): Future[Option[List[TravelProduct]]] = {
-    val sendRequest = Http().singleRequest(request = HttpRequest(
-      method = HttpMethods.POST,
-      uri = uri,
-      entity = HttpEntity(ContentTypes.`application/json`, TravelApi.Queries.getProducts(minPriceEur, maxPriceEur)),
-      protocol = HttpProtocols.`HTTP/1.1`
-    ))
+  def getProducts(
+      minPriceEur: Double,
+      maxPriceEur: Double
+  ): Future[Option[List[TravelProduct]]] = {
+    val sendRequest = Http().singleRequest(request =
+      HttpRequest(
+        method = HttpMethods.POST,
+        uri = uri,
+        entity = HttpEntity(
+          ContentTypes.`application/json`,
+          TravelApi.Queries.getProducts(minPriceEur, maxPriceEur)
+        ),
+        protocol = HttpProtocols.`HTTP/1.1`
+      )
+    )
 
     val x = for {
       response <- sendRequest
-      payload  <- Unmarshal(response.entity).to[Map[String, Map[String, Option[List[TravelProduct]]]]]
-      parsed   <- Try(payload("data")("products")) match {
+      payload <- Unmarshal(response.entity)
+        .to[Map[String, Map[String, Option[List[TravelProduct]]]]]
+      parsed <- Try(payload("data")("products")) match {
         case Success(value)     => Future(value)
         case Failure(exception) => Future.failed(exception)
       }

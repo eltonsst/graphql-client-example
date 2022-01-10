@@ -8,7 +8,10 @@ import spray.json.enrichAny
 
 import scala.concurrent.ExecutionContext
 
-class Routes()(implicit actorSystem: ActorSystem, executionContext: ExecutionContext) {
+class Routes()(implicit
+    actorSystem: ActorSystem,
+    executionContext: ExecutionContext
+) {
 
   private val travelApi = new TravelApi(Config.GraphqlUrl)
 
@@ -22,18 +25,19 @@ class Routes()(implicit actorSystem: ActorSystem, executionContext: ExecutionCon
 
   private lazy val productsRoute = {
     path("products") {
-      parameters("minPriceEur".as[Double], "maxPriceEur".as[Double]) { (min, max) =>
-        get {
-          val futRoute = for {
-            data <- travelApi.getProducts(min, max)
-          } yield complete(data.toJson.toString())
-          onComplete(futRoute)(route => route.get)
-        }
+      parameters("minPriceEur".as[Double], "maxPriceEur".as[Double]) {
+        (min, max) =>
+          get {
+            val futRoute = for {
+              data <- travelApi.getProducts(min, max)
+            } yield complete(data.toJson.toString())
+            onComplete(futRoute)(route => route.get)
+          }
       }
     }
   }
 
   lazy val routes: Route = {
-   versionRoute ~ productsRoute
+    versionRoute ~ productsRoute
   }
 }
