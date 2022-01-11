@@ -1,4 +1,4 @@
-package travel
+package travel.dal.model
 
 import spray.json.{DefaultJsonProtocol, RootJsonFormat}
 

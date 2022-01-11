@@ -1,6 +1,7 @@
-package travel
+package travel.util
 
 import spray.json.{JsObject, JsString, JsValue}
+import travel.dal.model.Vars
 
 object GraphQLRequestBuilder {
   def build(

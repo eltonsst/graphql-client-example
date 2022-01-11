@@ -29,7 +29,8 @@ lazy val root = (project in file("."))
       "org.sangria-graphql"  %% "sangria"  % "2.1.5",
       "ch.qos.logback" % "logback-classic" % "1.2.3",
       "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
-      "org.scalatest" %% "scalatest" % "3.1.4" % Test
+      "org.scalatest" %% "scalatest" % "3.1.4" % Test,
+      "org.scalatestplus" %% "mockito-3-4" % "3.2.10.0" % Test
     )
   )
 
